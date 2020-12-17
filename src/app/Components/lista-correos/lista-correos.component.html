@@ -2,20 +2,34 @@
     <tr>
         <th>Emisor</th>
         <th>Título</th>
+        <th>Responder</th>
     </tr>
-    <tr *ngFor="let correo of listaCorreos; index as i">
-        <td>
-            <!-- <p *ngIf="correo.leido">Leido</p>
-                <p *ngIf="!correo.leido">No leido</p> -->
-                <input type="radio" name="leido-{{i}}" [(ngModel)]="correo.leido" [value]=true>Si
-                <input type="radio" name="leido-{{i}}" [(ngModel)]="correo.leido" [value]=false>No
+    <ng-container *ngFor="let correo of listaCorreos; index as i" >
+        <tr>
+            <td>
+                <!-- <p *ngIf="correo.leido">Leido</p>
+                    <p *ngIf="!correo.leido">No leido</p> -->
+                    <input disabled="disabled" type="radio" name="leido-{{i}}" [(ngModel)]="correo.leido" [value]=true>Si
+                    <input disabled="disabled" type="radio" name="leido-{{i}}" [(ngModel)]="correo.leido" [value]=false>No
+                </td>
+            <td>{{correo.emisor}}</td>
+            <td>{{correo.titulo}}</td>
+            <td>
+                <button (click) ="clickResponder(correo)">Responder</button>
             </td>
-        <td>{{correo.emisor}}</td>
-        <td>{{correo.titulo}}</td>
-    </tr>
+        </tr>
+        <tr *ngIf="correo.responder">
+            <app-nuevo-correo-component [correo]="correoAResponder" (accionRealizada)="accionRespuestaRapida(correo)"></app-nuevo-correo-component>
+        </tr>
+    </ng-container>
 </table>
-<div *ngFor="let correo of listaCorreos">
+
+
+
+
+
+<!-- <div *ngFor="let correo of listaCorreos">
     <h2>Estado de {{correo.titulo}}</h2>
     <h3 *ngIf="correo.leido">Si</h3>
     <h3 *ngIf="!correo.leido">No</h3>
-</div>
+</div> -->

@@ -7,7 +7,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ListaCorreosComponent implements OnInit {
 
-  listaCorreos: any
+  listaCorreos: any[];
+  answer: boolean;
+  correoAResponder: any
   constructor() {
     this.listaCorreos = [{
         titulo:'Titulo del Primer Email',
@@ -29,12 +31,28 @@ export class ListaCorreosComponent implements OnInit {
         emisor: 'correoEmisor@openWebinar.inv',
         receptor: 'correoReceptor@openWebinar.inv',
         leido: true
+      },
+      {
+        titulo:'Titulo del Cuarto Email',
+        cuerpo: 'Cuerpo del email',
+        emisor: 'correoEmisor@openWebinar.inv',
+        receptor: 'correoReceptor@openWebinar.inv',
+        leido: true
       }
     ]
+    this.answer = false
 
   }
 
   ngOnInit(): void {
   }
+  clickResponder(correo: any){
+    this.answer = !this.answer
+    this.correoAResponder = correo
+    correo.responder = !correo.responder
+  }
 
+  accionRespuestaRapida(correo: { responder: boolean; }){
+    correo.responder = false
+  }
 }
